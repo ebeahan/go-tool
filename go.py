@@ -143,10 +143,12 @@ class ConfigDatabase(object):
         print "[*] Looking up entry for", hostname
         cur = self.dbh.cursor()
         sql = """\
-        SELECT * FROM config WHERE hostname = ?
+        SELECT * FROM config WHERE hostname LIKE ?
         """
+        # Create a wildcard search string
+        hostnamewild = '%' + hostname + '%'
         try:
-            cur.execute(sql, (hostname,))
+            cur.execute(sql, (hostnamewild,))
         except:
             raise Exception('[*] Error: failed to complete SQL query')
         return cur.fetchall()
