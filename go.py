@@ -186,7 +186,8 @@ class ConfigDatabase(object):
             try:
                 hostname, port, username, ipaddress = line.split(',')
                 # print hostname, port, username, ip
-                self._insert_config_entries(hostname, port, username, ipaddress)
+                self._insert_config_entries(hostname, port,
+                                            username, ipaddress)
                 recs += 1
             except:
                 errs += 1
@@ -381,7 +382,7 @@ def main(args):
     if args.destination is not None:
         entry = sqldb.lookup_entry(args.destination)[0]
         print "[*] Attempting to connect to", entry[1], "on port", \
-               str(entry[2]), "using username", entry[3], "..."
+            str(entry[2]), "using username", entry[3], "..."
         open_ssh_connection(entry)
         sys.exit(0)
 
@@ -389,7 +390,7 @@ def main(args):
     if args.integer is not None:
         entry = sqldb.lookup_id(args.integer)[0]
         print "[*] Attempting to connect to", entry[1], "on port", \
-               str(entry[2]), "using username", entry[3], "..."
+            str(entry[2]), "using username", entry[3], "..."
         open_ssh_connection(entry)
         sys.exit(0)
 
@@ -405,7 +406,7 @@ def main(args):
     # Open SSH connection and pass user selection
     entry = sqldb.lookup_id(selection)[0]
     print "[*] Attempting to connect to", entry[1], "on port", \
-           str(entry[2]), "using username", entry[3], "..."
+        str(entry[2]), "using username", entry[3], "..."
     open_ssh_connection(entry)
     sys.exit(0)
 
