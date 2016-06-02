@@ -64,6 +64,10 @@ class ConfigDatabase(object):
         """
         if dbname is None:
             dbhome = '%s/.go' % (os.path.expanduser('~'))
+            if not os.path.exists(dbhome):
+                os.makedirs(dbhome)
+                dbname = '%s/.configdb' % dbhome
+                open(dbname, 'a').close()
             self.dbname = '%s/.configdb' % dbhome
         else:
             self.dbname = dbname
@@ -98,7 +102,7 @@ class ConfigDatabase(object):
         """
         if not hostname and port and username and ipaddress:
             raise Exception('[*] Error: Missing required parameter')
-        print "Adding entry: ", hostname, port, username, ipaddress
+        # print "Adding entry: ", hostname, port, username, ipaddress
         cur = self.dbh.cursor()
         sql = """ \
         INSERT INTO config (
@@ -328,7 +332,9 @@ def entry_mode(configdb):
         port = raw_input("Port? ")
         username = raw_input("Username? ")
         ipaddress = raw_input("IP address? ")
-        print "Adding entry ", hostname, port, username, ipaddress
+        print("Adding entry: Hostname: {}, Port: {}".format(hostname, port))
+        print("              Username: {}, IP Address: {}".format(username,
+                                                                  ipaddress))
         configdb.update_new_entry(hostname, port, username, ipaddress)
         repeat_prompt = raw_input("Continue? [Y/n] ")
         if repeat_prompt != "Y":
