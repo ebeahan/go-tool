@@ -23,3 +23,6 @@ Config Database
 
 The configuration database saves a database file in $HOME/.go by default. A
 specific sqlite database can be specified with the ``-db`` argument.
+
+.. |travis| image:: https://travis-ci.org/ebeahan/go.svg?branch=master
+.. _travis https://travis-ci.org/ebeahan/go
