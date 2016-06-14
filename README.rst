@@ -1,7 +1,8 @@
 GO 0.1
 ==========
 
-|travis|
+.. image:: https://travis-ci.org/ebeahan/go.svg?branch=master
+    :target: https://travis-ci.org/ebeahan/go
 
 Users a menu driven interface to open SSH sessions.
 
@@ -24,5 +25,3 @@ Config Database
 The configuration database saves a database file in $HOME/.go by default. A
 specific sqlite database can be specified with the ``-db`` argument.
 
-.. image:: https://travis-ci.org/ebeahan/go.svg?branch=master
-    :target: https://travis-ci.org/ebeahan/go
