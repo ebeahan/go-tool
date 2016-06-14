@@ -45,6 +45,8 @@
 
 """
 
+from __future__ import print_function
+
 import sys
 import socket
 import argparse
@@ -126,7 +128,7 @@ class ConfigDatabase(object):
         """
         if not hostname:
             raise Exception('[*] Error: missing required parameter')
-        print "Removing entry for", hostname
+        print("Removing entry for", hostname)
         cur = self.dbh.cursor()
         sql = """\
         DELETE FROM config WHERE hostname = ?
@@ -144,7 +146,7 @@ class ConfigDatabase(object):
         """
         if not hostname:
             raise Exception('[*] Error: missing required parameters')
-        print "[*] Looking up entry for", hostname
+        print("[*] Looking up entry for", hostname)
         cur = self.dbh.cursor()
         sql = """\
         SELECT * FROM config WHERE hostname LIKE ?
@@ -164,7 +166,7 @@ class ConfigDatabase(object):
         """
         if integer < 0 or integer == 0:
             raise Exception('[*] Error: invalid ID number')
-        print "[*] Looking up ID #", integer
+        print("[*] Looking up ID #", integer)
         cur = self.dbh.cursor()
         sql = """\
         SELECT * FROM config WHERE id = ?
@@ -189,14 +191,13 @@ class ConfigDatabase(object):
                 continue
             try:
                 hostname, port, username, ipaddress = line.split(',')
-                # print hostname, port, username, ip
                 self._insert_config_entries(hostname, port,
                                             username, ipaddress)
                 recs += 1
             except:
                 errs += 1
                 continue
-        print '[*] Inserted %d records' % recs
+        print("[*] Inserted {} records".format(recs))
         if errs > 0:
             raise Exception('[*] Errors on insert %d' % errs)
 
@@ -241,8 +242,8 @@ class ConfigDatabase(object):
         """
         cur.execute(sql)
         for row in cur.fetchall():
-            print str(row[0]) + ") " + row[1]
-        print "\n"
+            print(str(row[0]) + ") " + row[1])
+        print("\n")
 
 
 def print_welcome_banner():
@@ -313,8 +314,8 @@ def search_config(configdb, dest):
             return configdb[i].split(",")
         else:
             i += 1
-    print "Specified host not listed in the configuration"
-    print "The program will now exit gracefully"
+    print("Specified host not listed in the configuration")
+    print("The program will now exit gracefully")
     sys.exit(0)
 
 
@@ -324,9 +325,9 @@ def entry_mode(configdb):
     :return: none
     """
     repeat = True
-    print "Entering entry mode...."
-    print "Please enter a hostname, port, username, and IP address for \
-           each entry."
+    print("Entering entry mode....")
+    print("Please enter a hostname, port, username, and IP address for \
+           each entry.")
     while repeat:
         hostname = raw_input("Hostname? ")
         port = raw_input("Port? ")
@@ -347,8 +348,8 @@ def remove_mode(configdb):
     :return: none
     """
     repeat = True
-    print "Entering removal mode..."
-    print "Please enter the hostname of the record you want to delete."
+    print("Entering removal mode...")
+    print("Please enter the hostname of the record you want to delete.")
     while repeat:
         hostname = raw_input("> ")
         configdb.remove_entry(hostname)
@@ -387,16 +388,16 @@ def main(args):
     # Print Destination
     if args.destination is not None:
         entry = sqldb.lookup_entry(args.destination)[0]
-        print "[*] Attempting to connect to", entry[1], "on port", \
-            str(entry[2]), "using username", entry[3], "..."
+        print("[*] Attempting to connect to", entry[1], "on port", \
+            str(entry[2]), "using username", entry[3], "...")
         open_ssh_connection(entry)
         sys.exit(0)
 
     # Connect to host based on config integer value
     if args.integer is not None:
         entry = sqldb.lookup_id(args.integer)[0]
-        print "[*] Attempting to connect to", entry[1], "on port", \
-            str(entry[2]), "using username", entry[3], "..."
+        print("[*] Attempting to connect to", entry[1], "on port", \
+            str(entry[2]), "using username", entry[3], "...")
         open_ssh_connection(entry)
         sys.exit(0)
 
@@ -411,8 +412,8 @@ def main(args):
 
     # Open SSH connection and pass user selection
     entry = sqldb.lookup_id(selection)[0]
-    print "[*] Attempting to connect to", entry[1], "on port", \
-        str(entry[2]), "using username", entry[3], "..."
+    print("[*] Attempting to connect to", entry[1], "on port", \
+        str(entry[2]), "using username", entry[3], "...")
     open_ssh_connection(entry)
     sys.exit(0)
 
