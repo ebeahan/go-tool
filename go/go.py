@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """ Title: go.py
     Author: Eric Beahan
@@ -98,11 +98,11 @@ def hostname_resolves(hostname):
 
 def open_ssh_connection(current_host):
     """Opens a SSH connection to currentHost"""
-    host = current_host[1]
+    host = current_host.hostname
     if not hostname_resolves(host):
-        host = current_host[4]
-    port = "-p" + str(current_host[2])
-    username = "-l" + current_host[3]
+        host = current_host.ip
+    port = "-p" + str(current_host.port)
+    username = "-l" + current_host.username
 
     # make system call
     try:
@@ -196,7 +196,7 @@ def main(args):
 
     # Print Destination
     if args.destination is not None:
-        entry = sqldb.lookup_entry(args.destination)[0]
+        entry = sqldb.lookup_entry(args.destination)
         print("[*] Attempting to connect to", entry.hostname, "on port", \
             str(entry.port), "using username", entry.username, "...")
         open_ssh_connection(entry)
@@ -204,7 +204,7 @@ def main(args):
 
     # Connect to host based on config integer value
     if args.integer is not None:
-        entry = sqldb.lookup_id(args.integer)[0]
+        entry = sqldb.lookup_id(args.integer)
         print("[*] Attempting to connect to", entry.hostname, "on port", \
             str(entry.port), "using username", entry.username, "...")
         open_ssh_connection(entry)
@@ -220,9 +220,9 @@ def main(args):
     selection = raw_input("Please enter your selection: ")
 
     # Open SSH connection and pass user selection
-    entry = sqldb.lookup_id(selection)[0]
-    print("[*] Attempting to connect to", entry[1], "on port", \
-        str(entry[2]), "using username", entry[3], "...")
+    entry = sqldb.lookup_id(selection)
+    print("[*] Attempting to connect to ", entry.hostname, " on port", \
+        str(entry.port), "using username", entry.username, "...")
     open_ssh_connection(entry)
     sys.exit(0)
 

@@ -33,10 +33,10 @@ class ConfigDatabase:
         :param dbname: sqlite database
         """
         if dbname is None:
-            dbhome = '{}/.go'.format(os.path.expanduser('~'))
+            dbhome = '{}/.go-tool'.format(os.path.expanduser('~'))
             if not os.path.exists(dbhome):
                 os.makedirs(dbhome)
-                self.configdb = '{}/.configdb'.format(dbhome)
+            self.configdb = '{}/config.db'.format(dbhome)
         else:
             self.configdb = dbname
         self.engine = create_engine('sqlite:///' + self.configdb, echo=False)
