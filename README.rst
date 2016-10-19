@@ -1,4 +1,4 @@
-GO 0.1
+GO-TOOL 0.1
 ==========
 
 .. image:: https://travis-ci.org/ebeahan/go.svg?branch=master
@@ -7,7 +7,7 @@ GO 0.1
 .. image:: https://coveralls.io/repos/github/ebeahan/go/badge.svg?branch=master
     :target: https://coveralls.io/github/ebeahan/go?branch=master
 
-Users a menu driven interface to open SSH sessions.
+Uses a menu driven interface to open SSH sessions.
 
 Basic Usage
 ------------
