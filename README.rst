@@ -4,6 +4,9 @@ GO 0.1
 .. image:: https://travis-ci.org/ebeahan/go.svg?branch=master
     :target: https://travis-ci.org/ebeahan/go
 
+ [![Coverage Status]
+(https://coveralls.io/repos/github/ebeahan/go/badge.svg?branch=master)](https://coveralls.io/github/ebeahan/go?branch=master)
+
 Users a menu driven interface to open SSH sessions.
 
 Basic Usage
