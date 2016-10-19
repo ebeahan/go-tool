@@ -4,6 +4,13 @@ python:
     - 2.7
 
 # install dependencies
-install: "pip install -r requirements.txt"
+install:
+  - pip install -r requirements.txt
+  - pip install coveralls
+  - pip install nosexcover
 # command to run tests
-script: nosetests -v
+script: 
+  nosetests -v --with-coverage --cover-package=skynet
+after_success:
+  coveralls      
+
